@@ -16,7 +16,6 @@ Example
         for rows.Next() {
           row := rows.Current()
           str := row.GetString("mystring")
-                f := row.GetFloat("float")
-            }
+          f := row.GetFloat("float")
         }
     }
