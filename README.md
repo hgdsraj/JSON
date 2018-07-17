@@ -8,6 +8,10 @@ Syntax like Java Json Object
 
 Example
 
+    import (
+        "github.com/josuemnb/JSON"
+    )
+
     json := JSON.Load(s)
     if o,ok := json.GetObject("j"); ok {
       println("J",j.GetString("ok"))
