@@ -1,6 +1,7 @@
 package JSON
 
 import (
+	"runtime"
 	"strconv"
 )
 
@@ -65,22 +66,27 @@ func indexFrom(s []byte, b string, p int) int {
 		return -1
 	}
 	pos := 0
-	block := blocks
-	array := arrays
+	block := 0
+	array := 0
 	for i := p; i < l; i++ {
 		if s[i] == '{' {
-			blocks++
+			block++
+			continue
 		} else if s[i] == '}' {
-			blocks--
+			block--
 		} else if s[i] == '[' {
 			array++
+			continue
 		} else if s[i] == ']' {
 			array--
-		} else if block > blocks {
+		}
+		if block > 0 || array > 0 {
 			continue
-		} else if array > arrays {
-			continue
-		} else if s[i] == b[pos] {
+		}
+		if array < 0 || block < 0 {
+			return -1
+		}
+		if s[i] == b[pos] {
 			pos++
 			if pos == lb {
 				return i + 1
@@ -120,6 +126,10 @@ func Load(data []byte) JObject {
 	j.pos = j.base
 	j.size = len(data)
 	return j
+}
+
+func (j *JObject) Free() {
+	runtime.GC()
 }
 
 func (j *JObject) Position() int {
