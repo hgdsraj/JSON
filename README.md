@@ -1,10 +1,10 @@
 # JSON
 
-Fast Json Parsing
+JSON allows Java like syntax for fast JSON parsing with low memory usage.
 
-Low memory usage
+### Usage
 
-Syntax like Java Json Object
+Get the package using your favorite dependency manager or `go get github.com/josuemnb/JSON` to install to your $GOPATH.
 
 Example
 
